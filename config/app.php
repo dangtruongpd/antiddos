@@ -232,4 +232,8 @@ return [
 
     ],
 
+    'bot_ip_urls' => ['https://developers.google.com/static/search/apis/ipranges/googlebot.json?hl=vi', 'https://www.bing.com/toolbox/bingbot.json'],
+
+    'recaptcha_api_url' => 'https://www.google.com/recaptcha/api/siteverify'
+
 ];

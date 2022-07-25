@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Http;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,31 +13,21 @@ use Illuminate\Support\Facades\Http;
 |
 */
 
-Route::get('/', 'HistoryController@index');
+Route::get('/', 'HomeController@home')->name('home');
 
-Route::prefix('curl')->group(function() {
+Route::post('/update-config', 'HomeController@updateConfig')->name('update-config');
 
-    Route::get('get', function() {
-        // $curl = curl_init();
+Route::get('/captcha', 'ReCaptchaController@showCaptcha')->name('captcha.show');
 
-        // curl_setopt_array($curl, array(
-        //     CURLOPT_RETURNTRANSFER => TRUE,
-        //     CURLOPT_URL => 'https://developers.google.com/static/search/apis/ipranges/googlebot.json?hl=vi',
-        //     CURLOPT_USERAGENT => 'Truong vd',
-        //     CURLOPT_SSL_VERIFYPEER => FALSE
-        // ));
-    
-        // $resp = curl_exec($curl);
-    
-        // //Dữ liệu thời tiết ở dạng JSON
-        
-        // $weather = json_decode($resp);
-    
-        // dd($weather->prefixes);
+Route::post('/captcha', 'ReCaptchaController@captcha')->name('captcha.check');
 
-        $response = Http::get('https://developers.google.com/static/search/apis/ipranges/googlebot.json?hl=vi');
+Route::prefix('/bot')->group(function() {
 
-        dd(json_decode($response->body())->prefixes);
-    });
+    Route::get('cache-bot-ip-list', 'GetBotIpController@index');
+    Route::get('get-bot-ip-list', 'GetBotIpController@getBotIpList');
+    Route::get('delete-bot-ip-list', 'GetBotIpController@deleteBotIpList');
 
 });
+
+
+// Route::get('/login', 'LoginController@login')->name('login');

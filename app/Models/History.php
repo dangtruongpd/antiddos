@@ -22,6 +22,12 @@ class History extends Model
 
     public $timestamps = false;
 
+    public function findByIP($ip){
+        $history = $this::where('ip', $ip)->get()->first();
+
+        return $history;
+    }
+
     public function addNewHistory($ip)
     {
         $history = new $this;
@@ -33,23 +39,40 @@ class History extends Model
         return $saved;
     }
 
-    public function updateHistory($ip)
+    public function updateHistory()
     {
-        $history = $this->where('ip', $ip)->first();
+        if($this->count>=1)
+            $this->last_time = now();
+            
+        $this->count += 1;
 
-        $history->count += 1;
-
-        $history->last_time = now();
-
-        $saved = $history->save();
+        $saved = $this->save();
 
         return $saved;
     }
 
-    public function isIPExists($ip)
+    public function resetHistory()
     {
-        $history = $this->where('ip', $ip)->first();
+        $this->count = 1;
 
-        return $history;
+        $this->first_time = now();
+
+        $this->last_time = null;
+
+        $saved = $this->save();
+
+        return $saved;
+    }
+
+    public function updateCount($ip)
+    {
+        $history = $this->where('ip', $ip)->get()->first();
+
+        if($history->count == 5){
+            $history->count = 0;
+            $history->first_time = now();
+            $history->last_time = null;
+            $history->save();
+        }
     }
 }
