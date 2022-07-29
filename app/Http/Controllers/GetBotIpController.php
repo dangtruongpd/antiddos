@@ -14,22 +14,6 @@ class GetBotIpController extends Controller
      */
     public function index()
     {
-                // $curl = curl_init();
-
-        // curl_setopt_array($curl, array(
-        //     CURLOPT_RETURNTRANSFER => TRUE,
-        //     CURLOPT_URL => 'https://developers.google.com/static/search/apis/ipranges/googlebot.json?hl=vi',
-        //     CURLOPT_USERAGENT => 'Truong vd',
-        //     CURLOPT_SSL_VERIFYPEER => FALSE
-        // ));
-    
-        // $resp = curl_exec($curl);
-    
-        // //Dữ liệu thời tiết ở dạng JSON
-        
-        // $weather = json_decode($resp);
-    
-        // dd($weather->prefixes);
 
         $ipUrl = config('app.bot_ip_urls');
 

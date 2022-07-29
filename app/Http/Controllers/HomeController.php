@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Http;
 use App\Models\History;
 use App\Models\Option;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class HomeController extends Controller
 {
@@ -20,7 +19,7 @@ class HomeController extends Controller
     }
 
     /**
-     * 
+     *
      *
      * @return \Illuminate\Http\Response
      */
@@ -28,40 +27,40 @@ class HomeController extends Controller
     {
         $all = $this->history->all();
 
-        $requests = Option::where('key', 'requests')->get()->first()->value;
+        $requests = Option::where('key', 'requests')->first()->value;
 
-        $scope = Option::where('key', 'scope')->get()->first()->value;
+        $scope = Option::where('key', 'scope')->first()->value;
 
-        $unit = Option::where('key', 'unit')->get()->first()->value;
+        $unit = Option::where('key', 'unit')->first()->value;
 
         return view('home', [
             'all' => $all,
             'requests' => $requests,
             'scope' => $scope,
-            'unit' => $unit
+            'unit' => $unit,
         ]);
     }
 
     /**
-     * 
+     *
      * @param \Illuminate\Http\Request $req
      * @return \Illuminate\Http\Response
      */
     public function updateConfig(Request $req)
-    {  
-        $requests = Option::where('key', 'requests')->get()->first();
+    {
+        $requests = Option::where('key', 'requests')->first();
 
         $requests->value = $req->requests;
 
         $requests->save();
 
-        $scope = Option::where('key', 'scope')->get()->first();
+        $scope = Option::where('key', 'scope')->first();
 
         $scope->value = $req->scope;
 
         $scope->save();
 
-        $unit = Option::where('key', 'unit')->get()->first();
+        $unit = Option::where('key', 'unit')->first();
 
         $unit->value = $req->unit;
 
@@ -71,7 +70,7 @@ class HomeController extends Controller
     }
 
     /**
-     * 
+     *
      * @param \Illuminate\Http\Request $req
      * @return \Illuminate\Http\Response
      */
